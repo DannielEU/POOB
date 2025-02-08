@@ -16,7 +16,7 @@ public class KalahGame {
                 board[i] = new Pit(true, i < 7);
             } else {
                 board[i] = new Pit(false, i < 7);
-                board[i].putSeeds(4);
+                board[i].putSeeds(3);
             }
         }
         organizeBoard();
@@ -27,19 +27,16 @@ public class KalahGame {
 
     public boolean makeMove(int pitIndex) {
         if ((playerTurn && (pitIndex < 0 || pitIndex > 5)) || (!playerTurn && (pitIndex < 7 || pitIndex > 12))) {
-            JOptionPane.showMessageDialog(null, "Movimiento inválido. Elige un pozo válido de tu lado.");
+            JOptionPane.showMessageDialog(null, "Movimiento inválido. Debes jugar en tu lado.");
             return false;
         }
-
         int seeds = board[pitIndex].seeds();
         if (seeds == 0) {
-            JOptionPane.showMessageDialog(null, "No hay semillas en esta casa. Elige otra.");
+            JOptionPane.showMessageDialog(null, "Mejor pideme dividir por cero. !No hay semillas en esta casa¡. Busca otra.");
             return false;
         }
-
         ArrayList<String> seedColors = board[pitIndex].removeSeedsAndGetColors();
         int currentIndex = pitIndex;
-
         while (!seedColors.isEmpty()) {
             currentIndex = (currentIndex + 1) % 14;
             if ((playerTurn && currentIndex == 13) || (!playerTurn && currentIndex == 6)) {
@@ -47,7 +44,6 @@ public class KalahGame {
             }
             board[currentIndex].putSeed(seedColors.remove(0));
         }
-
         boolean extraTurn = (playerTurn && currentIndex == 6) || (!playerTurn && currentIndex == 13);
         if (!extraTurn && board[currentIndex].seeds() == 1 && ((playerTurn && currentIndex < 6) || (!playerTurn && currentIndex > 6 && currentIndex < 13))) {
             int oppositeIndex = 12 - currentIndex;
@@ -59,14 +55,12 @@ public class KalahGame {
                 for (String color : capturedColors) {
                     board[storeIndex].putSeed(color);
                 }
-                JOptionPane.showMessageDialog(null, "¡Captura realizada!");
+                JOptionPane.showMessageDialog(null, "¡Captura realizada! semillas secuestradas =)");
             }
         }
-
         if (!extraTurn) {
             playerTurn = !playerTurn;
         }
-
         checkWinCondition();
         return true;
     }
@@ -89,7 +83,7 @@ public class KalahGame {
             int northStore = board[6].seeds();
             int southStore = board[13].seeds();
             String winner = northStore > southStore ? "N" : (northStore < southStore ? "S" : "Empate");
-            JOptionPane.showMessageDialog(null, "Juego terminado. Ganador: " + winner);
+            JOptionPane.showMessageDialog(null, "Juego terminado. El dulce Ganador: " + winner);
             restartGame();
         }
     }
@@ -115,6 +109,26 @@ public class KalahGame {
             pit.makeVisible();
         }
     }
+    public void mostrarEstadoJuego() {
+        StringBuilder estado = new StringBuilder("Estado actual del juego:\n\n");
+    
+        // Mostrar casas del sur (jugador sur)
+        estado.append("Sur:\n");
+        for (int i = 0; i < 6; i++) {
+            estado.append("Casa ").append(i).append(": ").append(board[i].seeds()).append(" semillas\n");
+        }
+        estado.append("Almacén Sur (6): ").append(board[6].seeds()).append(" semillas\n\n");
+    
+        // Mostrar casas del norte (jugador norte)
+        estado.append("Norte:\n");
+        for (int i = 12; i > 6; i--) {
+            estado.append("Casa ").append(i).append(": ").append(board[i].seeds()).append(" semillas\n");
+        }
+        estado.append("Almacén Norte (13): ").append(board[13].seeds()).append(" semillas");
+    
+        JOptionPane.showMessageDialog(null, estado.toString(), "Estado del Juego", JOptionPane.INFORMATION_MESSAGE);
+    }
+
 }
 
 

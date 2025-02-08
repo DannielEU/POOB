@@ -175,7 +175,15 @@ public class Rectangle{
     public int getxPosition(){
         return xPosition;
     }
-
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
+    public String getColor(){
+        return color;
+    }
     /*
      * Draw the rectangle with current specifications on screen.
      */

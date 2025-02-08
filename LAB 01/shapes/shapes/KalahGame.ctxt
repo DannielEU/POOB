@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=KalahGame
+comment1.params=
+comment1.target=KalahGame()
+comment2.params=
+comment2.target=void\ initializeGame()
+comment3.params=pitIndex
+comment3.target=boolean\ makeMove(int)
+comment4.params=
+comment4.target=void\ checkWinCondition()
+comment5.params=
+comment5.target=void\ restartGame()
+comment6.params=
+comment6.target=void\ organizeBoard()
+comment7.params=
+comment7.target=void\ makeVisible()
+numComments=8

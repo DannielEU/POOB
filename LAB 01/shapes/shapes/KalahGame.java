@@ -1,14 +1,24 @@
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * The kalah game.
+ * 
+ * @authors  Daniel Useche & Daniel Patiño
+ * @version 1.0  (February 2025)
+ */
 public class KalahGame {
     private Pit[] board;
     private boolean playerTurn;
+    /**
+     * This method will call the method to initialize the game. 
+     */   
     public KalahGame() {
         initializeGame();
     }
-
+    /**
+     * This method will initialize the game, adding the board and the seeds for the game.
+     */
     public void initializeGame() {
         board = new Pit[14];
         for (int i = 0; i < 14; i++) {
@@ -24,7 +34,9 @@ public class KalahGame {
         makeVisible();
         JOptionPane.showMessageDialog(null, "Juego iniciado. Turno del jugador N");
     }
-
+    /**
+     * This method will establish the rules of the game, the movements and in general the gameplay of the game.
+     */ 
     public boolean makeMove(int pitIndex) {
         if ((playerTurn && (pitIndex < 0 || pitIndex > 5)) || (!playerTurn && (pitIndex < 7 || pitIndex > 12))) {
             JOptionPane.showMessageDialog(null, "Movimiento inválido. Debes jugar en tu lado.");
@@ -64,7 +76,9 @@ public class KalahGame {
         checkWinCondition();
         return true;
     }
-
+    /**
+     *  This method will check the conditions that must be met for a player to win.
+     */
     public void checkWinCondition() {
         int northSeeds = 0, southSeeds = 0;
         for (int i = 0; i < 6; i++) northSeeds += board[i].seeds();
@@ -87,11 +101,15 @@ public class KalahGame {
             restartGame();
         }
     }
-
+    /**
+     * This method will restart the game calling back the initializeGame method.
+     */   
     public void restartGame() {
         initializeGame();
     }
-
+    /*
+     * This method will organize the board.
+     */  
     private void organizeBoard() {
         int xStart = 200, yStart = 200, spacing = 95;
         for (int i = 0; i < 6; i++) {
@@ -103,12 +121,17 @@ public class KalahGame {
         }
         board[13].moveTo(xStart - spacing, yStart);
     }
-    
+    /*
+     * This method will make visible the game.
+     */  
     private void makeVisible() {
         for (Pit pit : board) {
             pit.makeVisible();
         }
     }
+        /**
+     * This method will show the status of the game, showing the seeds in each warehouse.
+     */
     public void mostrarEstadoJuego() {
         StringBuilder estado = new StringBuilder("Estado actual del juego:\n\n");
     
@@ -128,6 +151,9 @@ public class KalahGame {
     
         JOptionPane.showMessageDialog(null, estado.toString(), "Estado del Juego", JOptionPane.INFORMATION_MESSAGE);
     }
+        /**
+     * This method will create a machine that can play automatically, making moves and some comments.
+     */
     public void machineMove() { 
         if (!playerTurn) {  
             ArrayList<Integer> validMoves = new ArrayList<>();

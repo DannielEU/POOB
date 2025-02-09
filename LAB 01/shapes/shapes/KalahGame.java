@@ -1,10 +1,10 @@
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class KalahGame {
     private Pit[] board;
     private boolean playerTurn;
-
     public KalahGame() {
         initializeGame();
     }
@@ -128,12 +128,22 @@ public class KalahGame {
     
         JOptionPane.showMessageDialog(null, estado.toString(), "Estado del Juego", JOptionPane.INFORMATION_MESSAGE);
     }
-
+    public void machineMove() { 
+        if (!playerTurn) {  
+            ArrayList<Integer> validMoves = new ArrayList<>();
+            for (int i = 7; i < 13; i++) {
+                if (board[i].seeds() > 0) {
+                    validMoves.add(i);
+                }
+            }
+            if (!validMoves.isEmpty()) {
+                int chosenMove = validMoves.get(new Random().nextInt(validMoves.size()));
+                makeMove(chosenMove);
+                JOptionPane.showMessageDialog(null, "La máquina jugó en la casa " + chosenMove);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Pero si es tu turno tontin. =)");
+        }
+    }
 }
-
-
-
-
-
-
-

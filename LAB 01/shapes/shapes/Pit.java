@@ -41,10 +41,6 @@ class Pit {
         }
         return removedColors;
     }
-
-
-
-
     public void putSeed(String color) {
         Rectangle seed = new Rectangle();
         seed.changeColor(color);
@@ -53,7 +49,6 @@ class Pit {
         seed.makeVisible();
         updateSeedPositions();
     }
-
     public void removeSeeds(int count) {
         for (int i = 0; i < count && !seeds.isEmpty(); i++) {
             Rectangle seed = seeds.remove(seeds.size() - 1);
@@ -78,10 +73,9 @@ class Pit {
         rect2.setyPosition(y + 5);
         updateSeedPositions();
     }
-
     private void updateSeedPositions() {
         int seedX = x + 10, seedY = y + 10;
-        int spacing = 20, cols = isBig ? 5 : 4; // Mayor capacidad en almacenes
+        int spacing = 20, cols = isBig ? 4 : 4; // Mayor capacidad en almacenes
         int j = 0, k = 0;
         for (Rectangle seed : seeds) {
             seed.setxPosition(seedX + j * spacing);
@@ -101,7 +95,16 @@ class Pit {
             seed.makeVisible();
         }
     }
-
+    public void setSeeds(int n) {
+        seeds.clear();  // Elimina las semillas actuales
+        for (int i = 0; i < n; i++) {
+            Rectangle seed = new Rectangle();
+            seed.changeColor(seedColor); // Usa el color original de la semilla
+            seed.changeSize(15, 15);
+            seeds.add(seed);
+        }
+        updateSeedPositions(); // Asegurar que las semillas están bien ubicadas
+    }
     public void makeInvisible() {
         rect1.makeInvisible();
         rect2.makeInvisible();
@@ -109,6 +112,7 @@ class Pit {
             seed.makeInvisible();
         }
     }
+    
 }
 
 

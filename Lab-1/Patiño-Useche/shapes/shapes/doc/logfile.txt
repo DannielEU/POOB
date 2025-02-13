@@ -1,0 +1,73 @@
+Project documentation
+<---- javadoc command: ---->
+C:\Program Files\BlueJ\jdk\bin\javadoc.exe
+-sourcepath
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes
+-source
+21
+-classpath
+C:\Program Files\BlueJ\lib\bluejcore.jar;C:\Program Files\BlueJ\lib\javafx-base-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-controls-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-fxml-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-graphics-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-media-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-swing-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-web-21.0.3-win.jar;C:\Program Files\BlueJ\lib\junit-4.12.jar;C:\Program Files\BlueJ\lib\junit-jupiter-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-api-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-params-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-commons-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-engine-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-launcher-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-suite-api-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-vintage-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ\lib\opentest4j-1.2.0.jar;C:\Program Files\BlueJ\lib\lang-stride.jar;C:\Program Files\BlueJ\lib\javafx\javafx.base.jar;C:\Program Files\BlueJ\lib\javafx\javafx.controls.jar;C:\Program Files\BlueJ\lib\javafx\javafx.fxml.jar;C:\Program Files\BlueJ\lib\javafx\javafx.graphics.jar;C:\Program Files\BlueJ\lib\javafx\javafx.media.jar;C:\Program Files\BlueJ\lib\javafx\javafx.properties.jar;C:\Program Files\BlueJ\lib\javafx\javafx.swing.jar;C:\Program Files\BlueJ\lib\javafx\javafx.web.jar;C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes
+-d
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc
+-encoding
+UTF-8
+-charset
+UTF-8
+-doctitle
+shapes
+-windowtitle
+shapes
+-author
+-version
+-nodeprecated
+-package
+-Xdoclint:none
+-link
+https://docs.oracle.com/en/java/javase/21/docs/api/
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes/Circle.java
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes/Canvas.java
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes/Rectangle.java
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes/Triangle.java
+<---- end of javadoc command ---->
+Loading source file C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Circle.java...
+Loading source file C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Canvas.java...
+Loading source file C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Rectangle.java...
+Loading source file C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Triangle.java...
+Constructing Javadoc information...
+Building index for all the packages and classes...
+Standard Doclet version 21.0.4+7-LTS
+Building tree for all the packages and classes...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\Canvas.html...
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Canvas.java:114: warning: @param argument "newColour" is not a parameter name.
+     * @param  newColour   the new colour for the foreground of the Canvas 
+       ^
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\Circle.html...
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Circle.java:160: warning: @param argument "color" is not a parameter name.
+     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
+       ^
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\Rectangle.html...
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Rectangle.java:143: warning: @param argument "newWidht" is not a parameter name.
+     * @param newWidht the new width in pixels. newWidth must be >=0.
+       ^
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Rectangle.java:154: warning: @param argument "color" is not a parameter name.
+     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
+       ^
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\Triangle.html...
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Triangle.java:141: warning: @param argument "newWidht" is not a parameter name.
+     * @param newWidht the new width in pixels. newWidht must be >=0.
+       ^
+C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\Triangle.java:152: warning: @param argument "color" is not a parameter name.
+     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
+       ^
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\package-summary.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\package-tree.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\constant-values.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\overview-tree.html...
+Building index for all classes...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\allclasses-index.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\allpackages-index.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\index-all.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\search.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\index.html...
+Generating C:\Users\danpa\Documents\Universidad\QUINTO SEMESTRE\POOB\LAB 01\shapes\shapes\doc\help-doc.html...
+6 warnings

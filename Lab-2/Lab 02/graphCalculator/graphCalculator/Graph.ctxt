@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Graph
+comment1.params=vertices\ edges
+comment1.target=Graph(java.lang.String[],\ java.lang.String[][])
+comment2.params=vertex
+comment2.target=boolean\ contains(java.lang.String)
+comment3.params=start\ end
+comment3.target=Graph\ path(java.lang.String,\ java.lang.String)
+comment4.params=g
+comment4.target=Graph\ union(Graph)
+comment5.params=
+comment5.target=int\ vertices()
+comment6.params=
+comment6.target=int\ edges()
+comment7.params=g
+comment7.target=boolean\ equals(Graph)
+comment8.params=g
+comment8.target=boolean\ equals(java.lang.Object)
+comment9.params=
+comment9.target=java.lang.String\ toString()
+numComments=10

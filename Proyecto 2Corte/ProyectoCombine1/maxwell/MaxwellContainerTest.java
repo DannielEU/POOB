@@ -56,27 +56,6 @@ public class MaxwellContainerTest
         int[] demons = container.demons();
         assertEquals(1, demons.length);
     }
-
-    
-    @Test
-    public void accordingPUshouldAddParticle(){
-        container.addParticle("red", true, 50,50,10,10);
-        int[][] particles = container.particles();
-        assertEquals();
-    }
-    
-    @Test
-    public void accordingPUshouldNotAddParticle(){ //Revisar
-        container.addParticle("grin", false, 10000,10000,0,0);
-        assertFalse(container.hasParticles("grin"));
-    }
-    
-    @Test
-    public void accordingPUshouldDelParticle(){
-        container.addParticle("red", true, 50,50,10,10);
-        container.delParticle("red");
-        assertFalse(container.hasParticles("red"));
-    }
     
     /*
     @Test

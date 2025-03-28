@@ -1,0 +1,32 @@
+#BlueJ class context
+comment0.target=MaxwellContainerTest
+comment0.text=\n\ The\ test\ class\ MaxwellContainerTest.\n\n\ @author\ \ Daniel\ Pati\u00F1o\ &\ Daniel\ Useche\n\ @version\ 1.1\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\n\ Sets\ up\ the\ test\ fixture.\n\n\ Called\ before\ every\ test\ case\ method.\n
+comment10.params=
+comment10.target=void\ shouldNotFinishIfVisible()
+comment10.text=\n\ \ \ \ @Test\n\ \ \ \ public\ void\ accordingPUshouldNotIsGoal(){\ \ \ \ \ \ \ \ \n\n\ \ \ \ \ \ \ \ int[][]\ particlesData\ \=\ {\n\ \ \ \ \ \ \ \ \ \ \ \ {1,\ 50,\ 10,\ 0,\ 0},\n\ \ \ \ \ \ \ \ \ \ \ \ {1,\ 223,\ 124,\ 0,\ 7},\n\ \ \ \ \ \ \ \ \ \ \ \ {1,\ 32,110,\ 0,\ 8},\n\ \ \ \ \ \ \ \ \ \ \ \ {0,\ 100,\ 40,\ 0,\ 10},\n\ \ \ \ \ \ \ \ \ \ \ \ {0,\ 200,\ 120,\ 0,\ 10},\n\ \ \ \ \ \ \ \ \ \ \ \ {0,\ 150,\ 25,\ 0,\ 10\ },\n\ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ };\n\ \ \ \ \ \ \ \ MaxwellContainer\ containerGoal\ \=\ new\ MaxwellContainer(200,\ 200,\ 100,\ 3,\ 3,\ particlesData);\n\ \ \ \ \ \ \ \ assertTrue(container.ok());\n\ \ \ \ \ \ \ \ container.addDeamon(100);\n\ \ \ \ \ \ \ \ container.start(500);\n\ \ \ \ \ \ \ \ assertTrue(containerGoal.isGoal());\n\ \ \ \ \ \ \ \ \n\ \ \ \ }\n
+comment11.params=
+comment11.target=void\ shouldNotFinishIfNotVisible()
+comment12.params=
+comment12.target=void\ tearDown()
+comment12.text=\n\ Tears\ down\ the\ test\ fixture.\n\n\ Called\ after\ every\ test\ case\ method.\n
+comment2.params=
+comment2.target=void\ accordingPUshouldAddDemon()
+comment3.params=
+comment3.target=void\ accordingPUshouldNotAddDemon()
+comment4.params=
+comment4.target=void\ accordingPUshoulddelDemon()
+comment5.params=
+comment5.target=void\ accordingPUshouldNotdelDemon()
+comment6.params=
+comment6.target=void\ accordingPUshouldAddHole()
+comment6.text=\n\ \ \ \ @Test\n\ \ \ \ public\ void\ accordingPUshouldDelParticle(){\n\ \ \ \ \ \ \ \ container.addParticle("red",\ true,\ 50,50,10,10);\n\ \ \ \ \ \ \ \ container.delParticle("red");\n\ \ \ \ \ \ \ \ assertFalse(container.hasParticles("red"));\n\ \ \ \ }\n\ \ \ \ \n\ \ \ \ @Test\n\ \ \ \ public\ void\ accordinPUshouldNotDelParticle(){\ //Revisar\n\ \ \ \ \ \ \ \ container.addParticle("blue",\ false,100,100,1,1);\n\ \ \ \ \ \ \ \ container.delParticle("green");\n\ \ \ \ \ \ \ \ assertFalse(container.hasParticles("green"));\ \n\ \ \ \ }\n
+comment7.params=
+comment7.target=void\ accordingPUshouldNotAddHole()
+comment8.params=
+comment8.target=void\ accordingPUshouldStart()
+comment9.params=
+comment9.target=void\ accordingPUshouldNotStart()
+numComments=13

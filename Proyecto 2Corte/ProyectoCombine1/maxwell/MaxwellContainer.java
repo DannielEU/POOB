@@ -30,7 +30,7 @@ public class MaxwellContainer {
     
     public MaxwellContainer(int h, int w) {
         try{
-            if(h <= 20 || w <= 20) throw new MaxwellException(MaxwellException.DIMENSIONESERROR);
+            if(h <= 40 || w <= 40) throw new MaxwellException(MaxwellException.DIMENSIONESERROR);
             this.h = h + 10;
             this.w = w + 10;
             canvas = new Canvas(w * 2 + 20, h + 20);
@@ -44,7 +44,9 @@ public class MaxwellContainer {
             holes = new ArrayList<>();
             isVisible = false;
         }catch(MaxwellException e){
-            JOptionPane.showMessageDialog(null, e);
+            if(!isVisible){
+                JOptionPane.showMessageDialog(null, e);
+            }
             isOk = false;
             System.exit(1);
         }
@@ -58,13 +60,14 @@ public class MaxwellContainer {
         int ref = 0;
         for (int[] p : particlesData) {
             try{
-                if(ref == 50) throw new MaxwellException(MaxwellException.PARTICLEINVALID);
                 String color = this.generateColorList().get(ref);
                 ref++;
                 boolean isRed = particles.size() < r;
                 addParticle(color,isRed,p[0], p[1], p[2], p[3]);
             }catch(MaxwellException e){
-                JOptionPane.showMessageDialog(null, e);
+                if(isVisible){
+                    JOptionPane.showMessageDialog(null, e);
+                }
                 isOk = false;
             }
         }
@@ -115,12 +118,15 @@ public class MaxwellContainer {
                 }
             }
         }catch(MaxwellException e){
-            JOptionPane.showMessageDialog(null, e);
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, e);
+            }
             isOk = false;
         }
     }
 
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy) throws MaxwellException {
+        if(particles.size() == 50) throw new MaxwellException(MaxwellException.PARTICLEINVALID);
         Particle p = new Particle(color, isRed, px, py, vx, vy);
         particles.add(p);       
     }
@@ -137,30 +143,45 @@ public class MaxwellContainer {
                 }
             }
         }catch(MaxwellException e){
-            JOptionPane.showMessageDialog(null, e);
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, e);
+            }
             isOk = false;
         }
     }
     
-    public void addHole(int px, int py, int maxParticles) {
-        if(px >= 0 && px <= w && py >= 0 && py <= h) {
-            Hole h = new Hole(px, py, maxParticles);        
-            holes.add(h);
+    public void addHole(int px, int py, int maxParticles)  {
+        try{
+            if(px >= -w && px <= w && py >= 11 && py <= h) {
+                Hole h = new Hole(px, py, maxParticles);        
+                holes.add(h);
+            }else{
+                throw new MaxwellException(MaxwellException.OUTOFRANGE);
+            }
+        }catch(MaxwellException e){
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, e);
+            }
+            isOk = false;
         }
     }
     
     public void start(int ticks) {
         try{
             if(ticks <= 0) throw new MaxwellException(MaxwellException.TIMENEGATIVE);
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, "¡Juego Iniciado!");
+            }
             for (int i = 0; i < ticks; i++) {
                 if (this.isGoal()) {
-                    JOptionPane.showMessageDialog(null, "¡Juego Terminado!");
                     return;
                 }
                 updateParticles();
             }
         }catch(MaxwellException e){
-            JOptionPane.showMessageDialog(null, e);
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, e);
+            }
             isOk = false;
         }
     }
@@ -178,6 +199,9 @@ public class MaxwellContainer {
                 (p.isRed() && p.getPositionX() >= w-5)) {
                 return false;
             }
+        }
+        if(isVisible){
+            JOptionPane.showMessageDialog(null, "Juego terminado!");
         }
         return true;
     }

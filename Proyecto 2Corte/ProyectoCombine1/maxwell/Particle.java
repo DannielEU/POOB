@@ -1,18 +1,18 @@
 package maxwell;
+
 import shapes.*;
 
 /**
- * Esta clase contiene la creacion y caracteristicas de las particulas.
- * Versión mejorada con colisiones precisas y movimiento suave
+ * Representa una partícula con movimiento y colisiones optimizadas.
  * 
  * @author Daniel Patiño & Daniel Useche
- * @version Version 1.5
+ * @version 1.6 (Optimizada)
  */
 public class Particle {
-    private int x, y;
-    private int vx, vy;
-    private boolean isRed;
-    private Circle circle;
+    private int x, y, vx, vy;
+    private final boolean isRed;
+    private final Circle circle;
+    private String color;
     
     public Particle(String color, boolean isRed, int x, int y, int vx, int vy) throws MaxwellException {
         this.x = x + MaxwellContainer.w;
@@ -21,159 +21,113 @@ public class Particle {
         this.vy = -vy;
         this.isRed = isRed;
         this.circle = new Circle();
-        if(this.x< 11|| this.x > MaxwellContainer.w*2 + 10|| this.y < 11 || this.y > MaxwellContainer.h + 10) throw new MaxwellException(MaxwellException.OUTOFRANGE + " " + this.toString());
-        this.settings(this.x, this.y, 8);  // Usamos las coordenadas ya ajustadas
+        this.color = color;
+        
+        if (isOutOfBounds()) {
+            throw new MaxwellException(MaxwellException.OUTOFRANGE + " " + this);
+        }
+        setupCircle(8);
     }
     
-    private void settings(int x, int y, int diameter) {
-        this.circle.changeSize(diameter);
-        this.circle.movetoX(x);
-        this.circle.movetoY(y);
-        this.circle.changeColor(isRed ? "red" : "blue");
+    private boolean isOutOfBounds() {
+        return x < 11 || x > MaxwellContainer.w * 2 + 10 || y < 11 || y > MaxwellContainer.h + 10;
+    }
+    
+    private void setupCircle(int diameter) {
+        circle.changeSize(diameter);
+        circle.changeColor(isRed ? "red" : "blue");
+        updateCircle();
     }
     
     public void move(int dt, int width, int height) {
-        for(int i = 0; i < dt; i++) {
-            this.crash(width, height);
+        for (int i = 0; i < dt; i++) {
+            checkCollisions();
             x += vx;
             y += vy;
-            this.softMove(width, height);
+            smoothMove();
         }
     }
     
-    public void softMove(int w, int h) {
-        int targetX = x;
-        int targetY = y;
+    private void smoothMove() {
+        int newX = limitStep(circle.getX(), x, 5);
+        int newY = limitStep(circle.getY(), y, 5);
         
-        // Movimiento suave con límite de 5px por frame
-        if(Math.abs(circle.getX() - targetX) > 5) {
-            targetX = circle.getX() + (targetX > circle.getX() ? 5 : -5);
+        updateCircle(newX, newY);
+    }
+    
+    private int limitStep(int current, int target, int step) {
+        return Math.abs(current - target) > step ? current + Integer.signum(target - current) * step : target;
+    }
+    
+    private void checkCollisions() {
+        if (atWallX()) {
+            handleWallXCollision();
         }
-        if(Math.abs(circle.getY() - targetY) > 5) {
-            targetY = circle.getY() + (targetY > circle.getY() ? 5 : -5);
-        }
-        
-        if(MaxwellContainer.isVisible) {
-            circle.makeInvisible();
-        }
-        circle.movetoX(targetX);
-        circle.movetoY(targetY);
-        if(MaxwellContainer.isVisible) {
-            circle.makeVisible();
+        if (atWallY()) {
+            vy = -vy;
+            y = clamp(y, 10, MaxwellContainer.h - 10);
         }
     }
     
-    public void crash(int width, int height) {
-        boolean crashedX = atWallX();
-        boolean crashedY = atWallY();
-        
-        if(crashedY) {
-            this.vy = -vy;
-            atWallYDown();
-            atWallYUp();
-        }
-        
-        if(crashedX) {
-            // Caso especial para pared central
-            if(x > MaxwellContainer.middle - 2 && x < MaxwellContainer.middle + 2) {
-                boolean onWrongSide = (isRed && x > MaxwellContainer.middle) || 
-                                     (!isRed && x < MaxwellContainer.middle);
-                if(onWrongSide && !centerBlock()) {
-                    // Demonio permite pasar - no rebotar
-                } else {
-                    vx = -vx;
-                    // Ajuste para evitar quedarse pegado
-                    if(x > MaxwellContainer.middle) {
-                        x = MaxwellContainer.middle + 3;
-                    } else {
-                        x = MaxwellContainer.middle - 3;
-                    }
-                }
-            } else {
-                vx = -vx;
-            }
-            atWallXDown();
-            atWallXUp();
-        }
+    private void handleWallXCollision() {
+        if (isNearMiddle() && isWrongSide()) {
+            if (!centerBlock()) return;
+           }
+        vx = -vx;
+        x = clamp(x, 10, MaxwellContainer.w * 2 - 10);
     }
     
-    public boolean centerBlock() {
-        int centerX = MaxwellContainer.middle;
-        boolean nearDemon = Math.abs(x - centerX) <= 9;
-        return nearDemon;
+    private boolean isNearMiddle() {
+        return x >= MaxwellContainer.middle - 2 && x <= MaxwellContainer.middle + 2;
     }
     
-    public boolean atWallX() {
-        if(x <= 10 || x >= MaxwellContainer.w * 2 - 11) {
-            return true;
-        }
-        
-        // Detección mejorada para pared central
-        int middle = MaxwellContainer.middle;
-        return (x >= middle - 2 && x <= middle + 2) || 
-               (vx > 0 && x + vx > middle && x < middle) ||
-               (vx < 0 && x + vx < middle && x > middle);
+    private boolean isWrongSide() {
+        return (isRed && x > MaxwellContainer.middle) || (!isRed && x < MaxwellContainer.middle);
     }
     
-    public boolean atWallY() {
+    private boolean centerBlock() {
+        return Math.abs(x - MaxwellContainer.middle) <= 9;
+    }
+    
+    private boolean atWallX() {
+        return x <= 10 || x >= MaxwellContainer.w * 2 - 11 || isNearMiddle();
+    }
+    
+    private boolean atWallY() {
         return y <= 10 || y >= MaxwellContainer.h - 10;
     }
     
-    public void atWallXDown() {
-        if(x < 10) {
-            x = 10;
-            if(vx < 0) vx = -vx;
-            updateCircle(x, y);
-        }
+    private int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
     }
     
-    public void atWallXUp() {
-        if(x > MaxwellContainer.w * 2 - 10) {
-            x = MaxwellContainer.w * 2 - 10;
-            if(vx > 0) vx = -vx;
-            updateCircle(x, y);
-        }
-    }
-    
-    public void atWallYDown() {
-        if(y < 10) {
-            y = 10;
-            if(vy < 0) vy = -vy;
-            updateCircle(x, y);
-        }
-    }
-    
-    public void atWallYUp() {
-        if(y > MaxwellContainer.h - 10) {
-            y = MaxwellContainer.h - 10;
-            if(vy > 0) vy = -vy;
-            updateCircle(x, y);
-        }
+    private void updateCircle() {
+        updateCircle(x, y);
     }
     
     private void updateCircle(int newX, int newY) {
-        if(MaxwellContainer.isVisible) {
+        if (MaxwellContainer.isVisible) {
             circle.makeInvisible();
         }
         circle.movetoX(newX);
         circle.movetoY(newY);
-        if(MaxwellContainer.isVisible) {
+        if (MaxwellContainer.isVisible) {
             circle.makeVisible();
         }
+        }
+        public void setX(int x) {
+        this.x = x;
+        updateCircle(x, this.y);
     }
     
-    // Resto de métodos se mantienen exactamente iguales
-    public boolean wheremI() {
-        return x > MaxwellContainer.middle;
+    public void setY(int y) {
+        this.y = y;
+        updateCircle(this.x, y);
     }
-    
+
     @Override
     public String toString() {
-        int x = this.x - MaxwellContainer.w;
-        int y = MaxwellContainer.h - this.y;
-        int vx = this.vx * -1;
-        int vy = this.vy * -1;
-        return String.format("Particle(x=%d, y=%d, vx=%d, vy=%d)", x, y, vx, vy);
+        return String.format("Particle(x=%d, y=%d, vx=%d, vy=%d)", x - MaxwellContainer.w, MaxwellContainer.h - y, -vx, -vy);
     }
     
     public int getPositionX() {
@@ -184,20 +138,17 @@ public class Particle {
         return y;
     }
     
-    public void setXPosition(int x) {
-        this.x = x;
-    }
-    
-    public String getColor() {
-        return isRed ? "red" : "blue";
-    }
-    
-    public void makeVisible() {
-        circle.makeVisible();       
-    }
-    
     public boolean isRed() {
         return isRed;
+    }
+    public String getColor(){
+        return this.color;
+    }
+    public String getTeam(){
+        if (isRed){return "red";}else{return "blue";}
+    }
+    public void makeVisible() {
+        circle.makeVisible();
     }
     
     public void makeInvisible() {

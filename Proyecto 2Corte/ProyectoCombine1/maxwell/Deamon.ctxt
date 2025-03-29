@@ -20,5 +20,5 @@ comment6.target=int\ getPositionY()
 comment6.text=\n\ Metodo\ para\ obtener\ la\ posicion\ en\ y\ del\ demonio.\n
 comment7.params=p\ w
 comment7.target=void\ getAccess(Particle,\ int)
-comment7.text=\n\ Metodo\ para\ determinar\ si\ el\ demonio\ deja\ pasar\ o\ no\ las\ particulas\ a\ travez\ de\ el.\n\ \n\ @param\ p\ \ Inidica\ la\ particula\ a\ la\ cual\ se\ determinara\ si\ pasa\ o\ no\ pasa.\n\ @param\ w\ \ Indica\ el\ ancho\ del\ contenedor.\n
+comment7.text=\n\ M\u00E9todo\ para\ determinar\ si\ el\ demonio\ deja\ pasar\ o\ no\ las\ part\u00EDculas\ a\ trav\u00E9s\ de\ \u00E9l.\n\n\ @param\ p\ \ Part\u00EDcula\ a\ evaluar.\n\ @param\ w\ \ Ancho\ del\ contenedor.\n
 numComments=8

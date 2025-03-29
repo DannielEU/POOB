@@ -61,21 +61,33 @@ public class Deamon {
         return rectangle.getPositionY();
     }
     
-    /**
-     * Metodo para determinar si el demonio deja pasar o no las particulas a travez de el.
-     * 
-     * @param p  Inidica la particula a la cual se determinara si pasa o no pasa.
-     * @param w  Indica el ancho del contenedor.
+        /**
+     * Método para determinar si el demonio deja pasar o no las partículas a través de él.
+     *
+     * @param p  Partícula a evaluar.
+     * @param w  Ancho del contenedor.
      */
-    public void getAccess(Particle p, int w){
-        if(Math.abs(p.getPositionX() - getPositionX()) < 10 && Math.abs(p.getPositionY()- getPositionY()) < 10){
-            if(p.getPositionX() < w/2 && p.getColor().equals("blue")){
-                    p.setXPosition(MaxwellContainer.middle + 7);
-            } else if(p.getPositionX() >  w/2 && p.getColor().equals("red")){
-                p.setXPosition(MaxwellContainer.middle - 7);
+    public void getAccess(Particle p, int w) {
+        int px = p.getPositionX();
+        int py = p.getPositionY();
+        int demonX = getPositionX();
+        int demonY = getPositionY();
+        String color = p.getTeam();
+        int middle = MaxwellContainer.middle;
+    
+        // Verifica si la partícula está lo suficientemente cerca del demonio
+        if (Math.abs(px - demonX) < 10 && Math.abs(py - demonY) < 10) {
+            boolean isLeft = px < middle;
+            boolean isRight = px > middle;
+    
+            if (isLeft && color.equals("blue")) {
+                p.setX(middle + 7);  // Permitir paso a la derecha
+            } else if (isRight && color.equals("red")) {
+                p.setX(middle - 7);  // Permitir paso a la izquierda
             }
         }
-    }
+}
+
 }
 
 

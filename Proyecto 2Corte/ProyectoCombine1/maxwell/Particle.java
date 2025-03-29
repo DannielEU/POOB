@@ -14,13 +14,14 @@ public class Particle {
     private boolean isRed;
     private Circle circle;
     
-    public Particle(String color, boolean isRed, int x, int y, int vx, int vy) {
+    public Particle(String color, boolean isRed, int x, int y, int vx, int vy) throws MaxwellException {
         this.x = x + MaxwellContainer.w;
         this.y = MaxwellContainer.h - y;
-        this.vx = vx;
-        this.vy = vy;
+        this.vx = -vx;
+        this.vy = -vy;
         this.isRed = isRed;
         this.circle = new Circle();
+        if(this.x< 11|| this.x > MaxwellContainer.w*2 + 10|| this.y < 11 || this.y > MaxwellContainer.h + 10) throw new MaxwellException(MaxwellException.OUTOFRANGE + " " + this.toString());
         this.settings(this.x, this.y, 8);  // Usamos las coordenadas ya ajustadas
     }
     
@@ -168,6 +169,10 @@ public class Particle {
     
     @Override
     public String toString() {
+        int x = this.x - MaxwellContainer.w;
+        int y = MaxwellContainer.h - this.y;
+        int vx = this.vx * -1;
+        int vy = this.vy * -1;
         return String.format("Particle(x=%d, y=%d, vx=%d, vy=%d)", x, y, vx, vy);
     }
     

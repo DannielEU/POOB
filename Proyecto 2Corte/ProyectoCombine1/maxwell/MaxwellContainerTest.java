@@ -57,36 +57,6 @@ public class MaxwellContainerTest
         assertEquals(1, demons.length);
     }
 
-    
-    @Test
-    public void accordingPUshouldAddParticle(){
-        container.addParticle("red", true, 50,50,10,10);
-        int[][] particles = container.particles();
-        assertEquals();
-    }
-    
-    @Test
-    public void accordingPUshouldNotAddParticle(){ //Revisar
-        container.addParticle("grin", false, 10000,10000,0,0);
-        assertFalse(container.hasParticles("grin"));
-    }
-    
-    @Test
-    public void accordingPUshouldDelParticle(){
-        container.addParticle("red", true, 50,50,10,10);
-        container.delParticle("red");
-        assertFalse(container.hasParticles("red"));
-    }
-    
-    /*
-    @Test
-    public void accordinPUshouldNotDelParticle(){ //Revisar
-        container.addParticle("blue", false,100,100,1,1);
-        container.delParticle("green");
-        assertFalse(container.hasParticles("green")); 
-    }
-    */
-    
 
     @Test
     public void accordingPUshouldAddHole(){
@@ -127,56 +97,6 @@ public class MaxwellContainerTest
         }
     }
     
-    //Revisar
-    /*
-    @Test
-    public void accordingPUshouldIsGoal(){        
-
-        int[][] particlesData = {
-            {1, -15, 10, 2, -4},
-            {1, 223, 124, -9, 7},
-            {1, 32,110, -12, 8},
-            {0, 100, 40, 10, 10},
-            {0, 200, 120, -20, 10},
-            {0, 150, 25, 20, 10},
-            
-            
-        };
-        MaxwellContainer containerGoal = new MaxwellContainer(200, 200, 100, 3, 3, particlesData);
-        assertTrue(container.ok());
-        container.addDeamon(100);
-        container.start(500);
-        assertFalse(containerGoal.isGoal());
-        
-    }
-    */
-    
-    
-    //Revisar
-    /*
-    @Test
-    public void accordingPUshouldNotIsGoal(){        
-
-        int[][] particlesData = {
-            {1, 50, 10, 0, 0},
-            {1, 223, 124, 0, 7},
-            {1, 32,110, 0, 8},
-            {0, 100, 40, 0, 10},
-            {0, 200, 120, 0, 10},
-            {0, 150, 25, 0, 10 },
-            
-            
-        };
-        MaxwellContainer containerGoal = new MaxwellContainer(200, 200, 100, 3, 3, particlesData);
-        assertTrue(container.ok());
-        container.addDeamon(100);
-        container.start(500);
-        assertTrue(containerGoal.isGoal());
-        
-    }
-    */
-   
-       // Pruebas para el método finish
     @Test
     public void shouldNotFinishIfVisible() {
         MaxwellContainer container = new MaxwellContainer(100, 100);

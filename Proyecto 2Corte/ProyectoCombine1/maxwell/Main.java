@@ -3,10 +3,12 @@ import javax.swing.JOptionPane;
 public class Main {
     public static void main(String[] args) {
         int[][] particlesData = {
+            { 15, 10, 1, -2}
+            ,{ 35, 10, -3, 2},
             { 15, 10, 2, -2}
-            ,{ -35, 10, -4, 4},
-            { 15, 10, 5, -2}
-            ,{ -65, 10, -4, 1}
+            ,{ -65, 16, -3, 1},
+            { 15, 10, 2, -2}
+            ,{ -265, 16, -3, 1}
         };
 
         MaxwellContainer container = new MaxwellContainer(200, 200, 100, 1, 2, particlesData);

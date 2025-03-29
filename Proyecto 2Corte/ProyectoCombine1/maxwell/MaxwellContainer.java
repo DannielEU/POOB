@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import java.util.Iterator;
+import java.util.Arrays;
 
 /**
  * Esta clase contiene la creacion y funcionamiento de Maxwell's Demon.
@@ -28,40 +29,56 @@ public class MaxwellContainer {
     private boolean isOk;
     
     public MaxwellContainer(int h, int w) {
-        isOk = validateDimensions(h, w);
-        if (!isOk) return;
-        
-        this.h = h + 10;
-        this.w = w + 10;
-        
-        canvas = new Canvas(w * 2 + 20, h + 20);
-        recta1 = new Rectangle();
-        recta2 = new Rectangle();
-        recta3 = new Rectangle();
-        tablero = new ArrayList<>();
-        this.settings(h,w);
-        
-        demons = new ArrayList<>();
-        particles = new ArrayList<>();
-        holes = new ArrayList<>();
-        
-        isVisible = false;
+        try{
+            if(h <= 20 || w <= 20) throw new MaxwellException(MaxwellException.DIMENSIONESERROR);
+            this.h = h + 10;
+            this.w = w + 10;
+            canvas = new Canvas(w * 2 + 20, h + 20);
+            recta1 = new Rectangle();
+            recta2 = new Rectangle();
+            recta3 = new Rectangle();
+            tablero = new ArrayList<>();
+            this.settings(h,w);
+            demons = new ArrayList<>();
+            particles = new ArrayList<>();
+            holes = new ArrayList<>();
+            isVisible = false;
+        }catch(MaxwellException e){
+            JOptionPane.showMessageDialog(null, e);
+            isOk = false;
+            System.exit(1);
+        }
     }
     
     public MaxwellContainer(int h, int w, int d, int b, int r, int[][] particlesData) {
         this(h, w);
+
         this.r = r;
         this.b = b;
-        if(isOk){
-            for (int[] p : particlesData) {
-                addParticle(p[0], p[1], p[2], p[3]);
+        int ref = 0;
+        for (int[] p : particlesData) {
+            try{
+                if(ref == 50) throw new MaxwellException(MaxwellException.PARTICLEINVALID);
+                String color = this.generateColorList().get(ref);
+                ref++;
+                boolean isRed = particles.size() < r;
+                addParticle(color,isRed,p[0], p[1], p[2], p[3]);
+            }catch(MaxwellException e){
+                JOptionPane.showMessageDialog(null, e);
+                isOk = false;
             }
-            this.addDeamon(d);
-        } else {
-            JOptionPane.showMessageDialog(null, "Juego no Iniciado debido a un Error.");
         }
+        this.addDeamon(d);
     }
-    
+    private List<String> generateColorList() {
+        return new ArrayList<>(Arrays.asList(
+            "Red", "Blue", "Green", "Yellow", "Orange", "Purple", "Cyan", "Magenta", "Pink", "Brown",
+            "Lime", "Teal", "Lavender", "Turquoise", "Beige", "Maroon", "Olive", "Coral", "Navy", "Gold",
+            "Silver", "Peach", "Violet", "Indigo", "Charcoal", "Ivory", "Salmon", "Azure", "Mint", "Tan",
+            "Plum", "Ruby", "Amber", "Emerald", "Sapphire", "Rose", "Pearl", "Aqua", "Fuchsia", "Khaki",
+            "Burgundy", "Moss", "Mustard", "Lilac", "Periwinkle", "Crimson", "Opal", "Sienna", "Graphite", "Copper"
+        ));
+    }
     private void settings(int h, int w) {
         tablero.add(recta1);
         tablero.add(recta2);
@@ -80,22 +97,6 @@ public class MaxwellContainer {
         recta3.moveVertical(10);
     }
     
-    private boolean validateDimensions(int h, int w) {
-        if (h < 20 || w < 20) {
-            JOptionPane.showMessageDialog(null, "Tamaño mínimo 20x20.");
-            return false;
-        } 
-        if (h < (w / 40) + 10) {
-            JOptionPane.showMessageDialog(null, "Juego Imposible, establezca otro tamaño.");
-            return false;
-        } 
-        if (h > 2000 || w > 2000) {
-            JOptionPane.showMessageDialog(null, "Tamaño máximo 2000x2000.");
-            return false;
-        }
-        return true;
-    }
-    
     public void addDeamon(int d) {
         int demonX = this.middle;
         int demonY = h - d;
@@ -104,32 +105,40 @@ public class MaxwellContainer {
     }
     
     public void delDemon(int d) {
-        if (demons.isEmpty()) return;
-        
-        for(int i = 0; i < demons.size(); i++) {
-            Deamon elDemon = demons.get(i);
-            if (elDemon.getPositionY() == d) {
-                elDemon.makeInvisible();
-                demons.remove(i);
+        try{
+            if(particles.size() == 0) throw new MaxwellException(MaxwellException.NOTEXISTDEMON);
+            for (int i = demons.size() - 1; i >= 0; i--) {
+                Deamon elDemon = demons.get(i);
+                if (elDemon.getPositionY() == h-d) {
+                    elDemon.makeInvisible();
+                    demons.remove(i);
+                }
             }
+        }catch(MaxwellException e){
+            JOptionPane.showMessageDialog(null, e);
+            isOk = false;
         }
     }
-    
-    public void addParticle(int px, int py, int vx, int vy) {
-        String color = particles.size() < r ? "red" : "blue";
-        boolean isRed = color.equals("red");
+
+    public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy) throws MaxwellException {
         Particle p = new Particle(color, isRed, px, py, vx, vy);
         particles.add(p);       
     }
     
     public void delParticle(String color) { 
-        Iterator<Particle> i = particles.iterator();
-        while(i.hasNext()){
-            Particle p = i.next();
-            if(p.getColor().equals(color)){
-                p.makeInvisible();
-                i.remove();
+        try{
+            if(particles.size() == 0) throw new MaxwellException(MaxwellException.NOTEXISTPARTICLE);
+            Iterator<Particle> i = particles.iterator();
+            while(i.hasNext()){
+                Particle p = i.next();
+                if(p.getColor().equals(color)){
+                    p.makeInvisible();
+                    i.remove();
+                }
             }
+        }catch(MaxwellException e){
+            JOptionPane.showMessageDialog(null, e);
+            isOk = false;
         }
     }
     
@@ -141,14 +150,18 @@ public class MaxwellContainer {
     }
     
     public void start(int ticks) {
-        if(ticks <= 0) return;
-        
-        for (int i = 0; i < ticks; i++) {
-            if (this.isGoal()) {
-                JOptionPane.showMessageDialog(null, "¡Juego Terminado!");
-                return;
+        try{
+            if(ticks <= 0) throw new MaxwellException(MaxwellException.TIMENEGATIVE);
+            for (int i = 0; i < ticks; i++) {
+                if (this.isGoal()) {
+                    JOptionPane.showMessageDialog(null, "¡Juego Terminado!");
+                    return;
+                }
+                updateParticles();
             }
-            updateParticles();
+        }catch(MaxwellException e){
+            JOptionPane.showMessageDialog(null, e);
+            isOk = false;
         }
     }
     
@@ -212,7 +225,10 @@ public class MaxwellContainer {
     }
     
     public void finish() {
-        // Implementación original
+        System.exit(0);
+        particles.clear();
+        demons.clear();
+        holes.clear();
     }
     
     public boolean ok() {

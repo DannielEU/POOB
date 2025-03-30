@@ -9,7 +9,6 @@ import java.util.*;
  */
 public class MaxwellContest{
      /**
-     * El metodo solve resuelve el juego con los parametros deseados
      * 
      * @param  h   define la altura del juego.
      * @param  w   define el ancho del juego.

@@ -3,7 +3,7 @@ package maxwell;
 public class Main {
     public static void main(String[] args) {
         int[][] particlesData = {
-            {40, 15, 2, -1},
+            {80, 45, 2, 0},
             {-25, 12, 1, 3},
         };
 

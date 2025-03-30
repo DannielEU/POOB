@@ -11,9 +11,9 @@ public class Main {
         MaxwellContest contest = new MaxwellContest();
         
         // Parámetros de la simulación
-        int width = 210;
-        int height = 40;
-        int demons = 20;
+        int width = 310;
+        int height = 300;
+        int demons = 50;
         int redParticles = 1;
         int blueParticles = 1;
         

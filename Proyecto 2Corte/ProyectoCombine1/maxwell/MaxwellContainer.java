@@ -43,12 +43,12 @@ public class MaxwellContainer {
             particles = new ArrayList<>();
             holes = new ArrayList<>();
             isVisible = false;
+            isOk = true;
         }catch(MaxwellException e){
             if(!isVisible){
                 JOptionPane.showMessageDialog(null, e);
             }
             isOk = false;
-            System.exit(1);
         }
     }
     
@@ -119,7 +119,7 @@ public class MaxwellContainer {
     
     public void delDemon(int d) {
         try{
-            if(particles.size() == 0) throw new MaxwellException(MaxwellException.NOTEXISTDEMON);
+            if(demons.size() == 0) throw new MaxwellException(MaxwellException.NOTEXISTDEMON);
             for (int i = demons.size() - 1; i >= 0; i--) {
                 Deamon elDemon = demons.get(i);
                 if (elDemon.getPositionY() == h-d) {
@@ -136,7 +136,7 @@ public class MaxwellContainer {
     }
 
     public void addParticle(String color, boolean isRed, int px, int py, int vx, int vy) throws MaxwellException {
-        if(particles.size() == 50) throw new MaxwellException(MaxwellException.PARTICLEINVALID);
+        if(particles.size() >= 50) throw new MaxwellException(MaxwellException.PARTICLEINVALID);
         Particle p = new Particle(color, isRed, px, py, vx, vy);
         particles.add(p);       
     }

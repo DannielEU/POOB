@@ -47,7 +47,7 @@ public class Hole {
     
     @Override
     public String toString() {
-        return String.format("Particle(x=%d, y=%d, vx=%d, vy=%d)", x - MaxwellContainer.w, MaxwellContainer.h - y);
+         return String.format("Hole(x=%d, y=%d, max=%d)", x, y, maxParticles);
     }
     
     public boolean canAbsorb() {

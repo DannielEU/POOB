@@ -30,7 +30,7 @@ public class MaxwellContainer {
     
     public MaxwellContainer(int h, int w) {
         try{
-            if(h <= 40 || w <= 40) throw new MaxwellException(MaxwellException.DIMENSIONESERROR);
+            if(h <= 20 || w <= 20) throw new MaxwellException(MaxwellException.DIMENSIONESERROR);
             this.h = h + 10;
             this.w = w + 10;
             canvas = new Canvas(w * 2 + 20, h + 20);

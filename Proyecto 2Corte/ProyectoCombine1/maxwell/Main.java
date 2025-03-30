@@ -1,21 +1,33 @@
 package maxwell;
+
 public class Main {
     public static void main(String[] args) {
         int[][] particlesData = {
-            { 175, 10, 2, -2}
-            ,{ 35, 10, -3, 2},
-            { -34, 10, 2, -2}
-            ,{ -65, 16, -3, 1},
-            { 15, 10, 2, -2}
-            ,{ -53, 16, -3, 1}
+            {15, 15, 1, -1},
+            {-15, 12, 1, 1},
         };
 
-        MaxwellContainer container = new MaxwellContainer(200, 200, 100, 2, 2, particlesData);
-        //public MaxwellContainer           (int h, int w, int d, int b, int r, int[][] particlesData
+        // Crear instancia de MaxwellContest
+        MaxwellContest contest = new MaxwellContest();
         
-        container.addHole(35,50,2);
-        System.out.println(container.start(10000)/60);// de milisegundos a segundos
+        // Parámetros de la simulación
+        int width = 210;
+        int height = 40;
+        int demons = 20;
+        int redParticles = 1;
+        int blueParticles = 1;
         
+        // Opción 1: Solo resolver (más rápido)
+        boolean isPossible = contest.solve(width, height, demons, redParticles, blueParticles, particlesData);
+        System.out.println("¿Es posible resolver? " + isPossible);
+        
+        // Opción 2: Simulación completa con visualización
+        contest.simulate(height, width, demons, blueParticles, redParticles, particlesData);
+        
+        // También puedes agregar agujeros si es necesario
+        // Nota: Necesitarías exponer este método en MaxwellContest o hacerlo antes
+        // MaxwellContainer container = new MaxwellContainer(width, height, demons, blueParticles, redParticles, particlesData);
+        // container.addHole(35, 50, 2);
     }
 }
 

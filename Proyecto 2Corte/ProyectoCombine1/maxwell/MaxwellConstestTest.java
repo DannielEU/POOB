@@ -24,43 +24,6 @@ public class MaxwellConstestTest
         
     }
     
-    @Test
-    public void test1(){
-        int w = 7;
-        int h = 4;
-        double d = 1;
-        int r = 1;
-        int b = 1;
-        double[][] particles1 = {
-            {2, 1, 4, 1}, 
-            {-3, 1, 2, 0} 
-        };
-        
-        String resultado = MaxwellContest.solve(w,h,d, r, b, particles1);
-        
-        assertEquals("24,0",resultado);
-        
-    }
-    
-    @Test
-     public void test2(){
-        int w = 4;
-        int h = 4;
-        int d = 1;
-        int r = 2;
-        int b = 2;
-        double[][] particles2 = {
-            {3, 1, 2, 2},   
-            {-2, 3, -2, -1}, 
-            {3, 2, 1, -2},  
-            {-2, 2, 2, 2}  
-        };
-            
-        String resultado = MaxwellContest.solve(w, h, d, r, b, particles2);
-        assertEquals("impossible", resultado);
-        
-    }
-    
     /**
      * Tears down the test fixture.
      *

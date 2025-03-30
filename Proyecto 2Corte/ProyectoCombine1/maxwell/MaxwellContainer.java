@@ -64,6 +64,7 @@ public class MaxwellContainer {
                 ref++;
                 boolean isRed = particles.size() < r;
                 addParticle(color,isRed,p[0], p[1], p[2], p[3]);
+                isOk = true;
             }catch(MaxwellException e){
                 if(isVisible){
                     JOptionPane.showMessageDialog(null, e);
@@ -101,10 +102,19 @@ public class MaxwellContainer {
     }
     
     public void addDeamon(int d) {
-        int demonX = this.middle;
-        int demonY = h - d;
-        Deamon deamon = new Deamon(demonX - 4, demonY);
-        demons.add(deamon);            
+        try{
+            int demonX = this.middle;
+            int demonY = h - d;
+            if(demonY < 10 || demonY > h+10) throw new MaxwellException(MaxwellException.DEAMONINVALID);
+            Deamon deamon = new Deamon(demonX - 4, demonY);
+            demons.add(deamon);  
+            isOk = true;
+        }catch(MaxwellException e){
+            if(isVisible){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            isOk = false;
+        }
     }
     
     public void delDemon(int d) {
@@ -176,6 +186,7 @@ public class MaxwellContainer {
                 if (this.isGoal()) {
                     return;
                 }
+                isOk = true;
                 updateParticles();
             }
         }catch(MaxwellException e){

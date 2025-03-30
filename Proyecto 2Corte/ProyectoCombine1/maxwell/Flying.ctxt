@@ -1,6 +1,0 @@
-#BlueJ class context
-comment0.target=Flying
-comment0.text=\n\ Write\ a\ description\ of\ class\ Flying\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=color\ isRed\ x\ y\ vx\ vy
-comment1.target=Flying(java.lang.String,\ boolean,\ int,\ int,\ int,\ int)
-numComments=2

@@ -9,10 +9,10 @@ import shapes.*;
  * @version 1.6 (Optimizada)
  */
 public class Particle {
-    private int x, y, vx, vy;
-    private final boolean isRed;
-    private final Circle circle;
-    private String color;
+    protected int x, y, vx, vy;
+    protected boolean isRed;
+    protected Circle circle;
+    protected String color;
     
     public Particle(String color, boolean isRed, int x, int y, int vx, int vy) throws MaxwellException {
         this.x = x + MaxwellContainer.w;
@@ -48,7 +48,7 @@ public class Particle {
         }
     }
     
-    private void smoothMove() {
+    protected void smoothMove() {
         int newX = limitStep(circle.getX(), x, 5);
         int newY = limitStep(circle.getY(), y, 5);
         

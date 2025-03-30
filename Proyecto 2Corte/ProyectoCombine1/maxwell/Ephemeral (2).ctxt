@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Ephemeral
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Ephemeral\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=color\ isRed\ x\ y\ vx\ vy
+comment1.target=Ephemeral(java.lang.String,\ boolean,\ int,\ int,\ int,\ int)
+comment1.text=\r\n\ Constructor\ de\ Ephemeral\r\n
+comment2.params=dt\ width\ height
+comment2.target=void\ move(int,\ int,\ int)
+comment3.params=
+comment3.target=void\ checkCollisions()
+comment4.params=
+comment4.target=void\ handleWallXCollision()
+numComments=5

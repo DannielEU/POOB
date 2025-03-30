@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Rectangle
+comment0.text=\r\n\ A\ rectangle\ that\ can\ be\ manipulated\ and\ that\ draws\ itself\ on\ a\ canvas.\r\n\ \r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\ (Modified)\r\n\ @version\ 1.0\ \ (15\ July\ 2000)()\r\n
+comment1.params=x\ y\ Height\ Width\ Color
+comment1.target=Rectangle(int,\ int,\ int,\ int,\ java.lang.String)
+comment1.text=\r\n\ Create\ a\ new\ rectangle\ at\ default\ position\ with\ default\ color.\r\n\ Change\ the\ color.\ \r\n\ @param\ color\ the\ new\ color.\ Valid\ colors\ are\ "red",\ "yellow",\ "blue",\ "green",\r\n\ "magenta"\ and\ "black".\r\n
+comment2.params=
+comment2.target=Rectangle()
+comment3.params=newHeight\ newWidth
+comment3.target=void\ changeSize(int,\ int)
+comment3.text=\r\n\ Change\ the\ size\ to\ the\ new\ size\r\n\ @param\ newHeight\ the\ new\ height\ in\ pixels.\ newHeight\ must\ be\ >\=0.\r\n\ @param\ newWidht\ the\ new\ width\ in\ pixels.\ newWidth\ must\ be\ >\=0.\r\n
+comment4.params=
+comment4.target=void\ draw()
+comment4.text=\r\n\ Draw\ the\ rectangle\ with\ current\ specifications\ on\ screen.\r\n
+comment5.params=
+comment5.target=int\ getPositionX()
+comment6.params=
+comment6.target=int\ getPositionY()
+comment7.params=
+comment7.target=int\ getWidth()
+comment8.params=
+comment8.target=int\ getHeight()
+numComments=9

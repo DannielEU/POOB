@@ -22,12 +22,12 @@ public class Rectangle extends Figure{
      * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
      * "magenta" and "black".
      */
-    public Rectangle(int x, int y, int Height, int Width, String Color){
+    public Rectangle(int x, int y, int Height, int Width, String color){
         height = Height;
         width = Width;
         xPosition = x;
         yPosition = y;
-        color = Color;
+        color = color;
         isVisible = false;
     }
     
@@ -53,9 +53,6 @@ public class Rectangle extends Figure{
         draw();
     }
     
-    /*
-     * Draw the rectangle with current specifications on screen.
-     */
     @Override
     public void draw(){
         if(isVisible) {
@@ -67,13 +64,6 @@ public class Rectangle extends Figure{
         }
     }
     
-    public int getPositionX(){
-        return xPosition;
-    }
-    
-    public int getPositionY(){
-        return yPosition;
-    }
     
     public int getWidth(){
         return width;

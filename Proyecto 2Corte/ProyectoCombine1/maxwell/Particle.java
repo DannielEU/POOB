@@ -24,7 +24,7 @@ public class Particle {
         this.color = color;
         
         if (isOutOfBounds()) {
-            throw new MaxwellException(MaxwellException.OUTOFRANGE + " " + this);
+            throw new MaxwellException(MaxwellException.OUTOFRANGE + " " + this.toString());
         }
         setupCircle(8);
     }

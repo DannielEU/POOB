@@ -161,13 +161,9 @@ public class MaxwellContainer {
     }
     
     public void addHole(int px, int py, int maxParticles)  {
-        try{
-            if(px >= -w && px <= w && py >= 11 && py <= h) {
-                Hole h = new Hole(px, py, maxParticles);        
-                holes.add(h);
-            }else{
-                throw new MaxwellException(MaxwellException.OUTOFRANGE);
-            }
+        try{ 
+            Hole h = new Hole(px, py, maxParticles);        
+            holes.add(h);
         }catch(MaxwellException e){
             if(isVisible){
                 JOptionPane.showMessageDialog(null, e);
@@ -176,7 +172,7 @@ public class MaxwellContainer {
         }
     }
     
-    public void start(int ticks) {
+    public int start(int ticks) {
         try{
             if(ticks <= 0) throw new MaxwellException(MaxwellException.TIMENEGATIVE);
             if(isVisible){
@@ -184,23 +180,37 @@ public class MaxwellContainer {
             }
             for (int i = 0; i < ticks; i++) {
                 if (this.isGoal()) {
-                    return;
+                    return i;
                 }
                 isOk = true;
                 updateParticles();
             }
+            return -1;
         }catch(MaxwellException e){
             if(isVisible){
                 JOptionPane.showMessageDialog(null, e);
             }
             isOk = false;
+            return -1;
         }
     }
     
     private void updateParticles() {
+        ArrayList<String> particlesToRemove = new ArrayList<>();
         for (Particle p : particles) {
             p.move(1, recta2.getWidth(), recta2.getHeight());
-            demons.forEach(d -> d.getAccess(p, recta2.getWidth()));
+            for (Hole h : holes) {
+                if (h.tryAbsorb(p) && h.canAbsorb()) {
+                    particlesToRemove.add(p.getColor());
+                    break; 
+                }
+            }
+            if (!particlesToRemove.contains(p.getColor())) {
+                demons.forEach(d -> d.getAccess(p, recta2.getWidth()));
+            }
+        }
+        for (String color : particlesToRemove) {
+            this.delParticle(color); 
         }
     }
     

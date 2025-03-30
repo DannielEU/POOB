@@ -1,65 +1,76 @@
 package maxwell;
 import shapes.*;
-/**
- * Esta clase contiene la creacion y caracteristicas del agujero.
- * 
- * @author Daniel Patiño & Daniel Useche
- * @version Version 1.1
- */
-    
+import java.util.*;
 public class Hole {
     private Circle circle;
-    private int x, y;
+    private int x;
+    private int y;
     private int maxParticles;
-    private int absortionRadius = 5;
+    private ArrayList<String> absorbedParticleColors;
     
-    public Hole(int x, int y, int maxParticles) {
-        this.x = x;
-        this.y = y;
+    public Hole(int x, int y, int maxParticles) throws MaxwellException {
+        this.x = x + MaxwellContainer.w;
+        this.y = MaxwellContainer.h - y;
         this.maxParticles = maxParticles;
-        circle = new Circle();
-        this.settings(y,x);
+        this.absorbedParticleColors = new ArrayList<>();
+        this.circle = new Circle();
+        if (isOutOfBounds()) {
+            throw new MaxwellException(MaxwellException.OUTOFRANGE + " " + this.toString());
+        }
+        setupCircle(10);
     }
-    
-    /*
-     *Metodo que define las caracteristicas del agujero.
-     *
-     *@param y  Define la posicion en x del agujero.
-     *@param x  Define la posicion en y del agujero.
-     */
-    private void settings(int y, int x){
+    private boolean isOutOfBounds() {
+        return x < 11 || x > MaxwellContainer.w * 2 + 10 || y < 11 || y > MaxwellContainer.h + 10;
+    }
+    private void setupCircle(int diameter) {
+        circle.changeSize(diameter);
         circle.changeColor("black");
-        circle.moveHorizontal(x);
-        circle.moveVertical(y);
-        circle.changeSize(5); 
+        circle.movetoX(x);
+        circle.movetoY(y);
     }
     
-    /**
-     * Metodo para hacer visible el agujero.
-     */
-    public void makeVisible(){
+    public void makeVisible() {
         circle.makeVisible();
     }
     
-    /**
-     * Metodo para hacer invisible el agujero.
-     */
-    public void makeInvisible(){
+    public void makeInvisible() {
         circle.makeInvisible();
     }
     
-    /**
-     * Metodo para obtener la posicion en x el agujero.
-     */
-    public int getX(){
+    public int getX() {
         return x;
     }
     
-    /**
-     * Metodo para obtener la posicion en y el agujero.
-     */
-    public int getY(){
+    public int getY() {
         return y;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("Particle(x=%d, y=%d, vx=%d, vy=%d)", x - MaxwellContainer.w, MaxwellContainer.h - y);
+    }
+    
+    public boolean canAbsorb() {
+        return absorbedParticleColors.size() < maxParticles;
+    }
+    
+    public boolean tryAbsorb(Particle p) {
+        if (!canAbsorb()) {
+            this.makeInvisible();
+        }
+        double distance = Math.sqrt(Math.pow(p.getPositionX() - x, 2) + 
+                          Math.pow(p.getPositionY() - y, 2));
+        int particleRadius = 5;
+        int holeRadius = 5;
+        
+        if (distance < (particleRadius + holeRadius)) {
+            absorbedParticleColors.add(p.getColor());
+            return true;
+        }
+        return false;
+    }
+    
+    public ArrayList<String> getAbsorbedParticleColors() {
+        return new ArrayList<>(absorbedParticleColors);
+    }
 }
-

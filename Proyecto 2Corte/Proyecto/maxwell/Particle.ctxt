@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Particle
-comment0.text=\n\ Representa\ una\ part\u00EDcula\ con\ movimiento\ y\ colisiones\ optimizadas.\n\ \n\ @author\ Daniel\ Pati\u00F1o\ &\ Daniel\ Useche\n\ @version\ 1.6\ (Optimizada)\n
+comment0.text=\r\n\ Representa\ una\ part\u00EDcula\ con\ movimiento\ y\ colisiones\ optimizadas.\r\n\ \r\n\ @author\ Daniel\ Pati\u00F1o\ &\ Daniel\ Useche\r\n\ @version\ 1.6\ (Optimizada)\r\n
 comment1.params=color\ isRed\ x\ y\ vx\ vy
 comment1.target=Particle(java.lang.String,\ boolean,\ int,\ int,\ int,\ int)
 comment10.params=

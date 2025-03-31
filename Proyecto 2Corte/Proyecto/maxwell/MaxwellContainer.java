@@ -30,7 +30,7 @@ public class MaxwellContainer {
     
     public MaxwellContainer(int h, int w) {
         try{
-            if(h < 20 || w < 20) throw new MaxwellException(MaxwellException.DIMENSIONESERROR);
+            if(h <= 40 || w <= 40) throw new MaxwellException(MaxwellException.DIMENSIONESERROR);
             this.h = h + 10;
             this.w = w + 10;
             canvas = new Canvas(w * 2 + 20, h + 20);
@@ -43,12 +43,12 @@ public class MaxwellContainer {
             particles = new ArrayList<>();
             holes = new ArrayList<>();
             isVisible = false;
-            isOk = true;
         }catch(MaxwellException e){
             if(!isVisible){
                 JOptionPane.showMessageDialog(null, e);
             }
             isOk = false;
+            System.exit(1);
         }
     }
     
@@ -100,6 +100,30 @@ public class MaxwellContainer {
         recta3.moveVertical(10);
     }
     
+    public void addDeamon(String type, int d ){
+        try{
+            int demonX = this.middle;
+            int demonY = h - d;
+            Deamon dm;
+            if(demonY < 10 || demonY > h+10) throw new MaxwellException(MaxwellException.DEAMONINVALID);
+            
+            if(type.toLowerCase() == "blue") {
+                dm = new Blue(demonX - 4, demonY);   
+                demons.add(dm);
+            }
+            if(type.toLowerCase() == "weak"){
+                dm = new Weak(demonX - 4, demonY, this);
+                demons.add(dm);
+            }
+            isOk = true;
+        } catch(MaxwellException e){
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, e);
+            }
+            isOk = false;
+        }
+    }
+    
     public void addDeamon(int d) {
         try{
             int demonX = this.middle;
@@ -118,7 +142,7 @@ public class MaxwellContainer {
     
     public void delDemon(int d) {
         try{
-            if(demons.size() == 0) throw new MaxwellException(MaxwellException.NOTEXISTDEMON);
+            if(particles.size() == 0) throw new MaxwellException(MaxwellException.NOTEXISTDEMON);
             for (int i = demons.size() - 1; i >= 0; i--) {
                 Deamon elDemon = demons.get(i);
                 if (elDemon.getPositionY() == h-d) {
@@ -198,6 +222,27 @@ public class MaxwellContainer {
         }
     }
     
+    public void addHole(String type, int px, int py, int maxParticles){
+        Hole h;
+        try{
+            if(type.toLowerCase() == "normal"){
+                h = new Hole(px, py, maxParticles);
+                holes.add(h); 
+            }
+            if(type.toLowerCase() == "movil"){
+                h = new Movil(px, py, maxParticles);
+                holes.add(h);
+            }
+            
+        }catch(MaxwellException e){
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, e);
+            }
+            isOk = false;
+        }
+        
+    }
+    
     public int start(int ticks) {
         try{
             if(ticks <= 0) throw new MaxwellException(MaxwellException.TIMENEGATIVE);
@@ -206,7 +251,7 @@ public class MaxwellContainer {
             }
             for (int i = 0; i < ticks; i++) {
                 if (this.isGoal()) {
-                    return i;
+                    return -1;
                 }
                 isOk = true;
                 updateParticles();
@@ -223,12 +268,13 @@ public class MaxwellContainer {
     
     private void updateParticles() { 
         ArrayList<String> particlesToRemove = new ArrayList<>();
+        
         Iterator<Particle> i = particles.iterator();
         while(i.hasNext()){
             Particle p = i.next();
             p.move(1, recta2.getWidth(), recta2.getHeight());
             
-            for (Hole h : holes) {
+            for (Hole h : holes) { 
                 if (h.tryAbsorb(p) && h.canAbsorb()) {
                     particlesToRemove.add(p.getColor());
                     break; 

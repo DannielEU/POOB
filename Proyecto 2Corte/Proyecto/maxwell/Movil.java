@@ -1,32 +1,29 @@
 package maxwell;
-
 import shapes.*;
 
 /**
- * Representa una partícula con movimiento y colisiones optimizadas.
+ * Write a description of class Movil here.
  * 
- * @author Daniel Patiño & Daniel Useche
- * @version 1.6 (Optimizada)
+ * @author (your name) 
+ * @version (a version number or a date)
  */
-public class Particle{
-    protected int x, y, vx, vy;
-    protected boolean isRed;
-    private Circle circle;
-    protected String color;
+public class Movil extends Hole{
+    public int vx ; 
+    public int vy;
     
-    public Particle(String color, boolean isRed, int x, int y, int vx, int vy) throws MaxwellException {
-        this.x = x + MaxwellContainer.w;
-        this.y = MaxwellContainer.h - y;
-        this.vx = -vx;
-        this.vy = -vy;
-        this.isRed = isRed;
-        this.circle = new Circle();
-        this.color = color;
+    /**
+     * Constructor for objects of class Movil
+     */
+    public Movil(int x, int y, int maxParticles) throws MaxwellException{
+        super(x, y, maxParticles);
+        this.vx = 1;
+        this.vy = 1;
         
         if (isOutOfBounds()) {
             throw new MaxwellException(MaxwellException.OUTOFRANGE + " " + this);
         }
-        setupCircle(8);
+        setupCircle(10);
+        makeVisible();
     }
     
     private boolean isOutOfBounds() {
@@ -35,8 +32,9 @@ public class Particle{
     
     private void setupCircle(int diameter) {
         circle.changeSize(diameter);
-        circle.changeColor(isRed ? "red" : "blue");
-        updateCircle();
+        circle.changeColor("black");
+        circle.movetoX(x);
+        circle.movetoY(y);
     }
     
     protected void move(int dt, int width, int height) {
@@ -70,7 +68,7 @@ public class Particle{
     }
     
     protected void handleWallXCollision() {
-        if (isNearMiddle() && isWrongSide()) {
+        if (isNearMiddle()) {
             if (!centerBlock()) return;
            }
         vx = -vx;
@@ -79,10 +77,6 @@ public class Particle{
     
     protected boolean isNearMiddle() {
         return x >= MaxwellContainer.middle - 2 && x <= MaxwellContainer.middle + 2;
-    }
-    
-    protected boolean isWrongSide() {
-        return (isRed && x > MaxwellContainer.middle) || (!isRed && x < MaxwellContainer.middle);
     }
     
     protected boolean centerBlock() {
@@ -116,51 +110,4 @@ public class Particle{
         }
     }
         
-    public void setX(int x) {
-        this.x = x;
-        updateCircle(x, this.y);
-    }
-    
-    public void setY(int y) {
-        this.y = y;
-        updateCircle(this.x, y);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Particle(x=%d, y=%d, vx=%d, vy=%d)", x - MaxwellContainer.w, MaxwellContainer.h - y, -vx, -vy);
-    }
-    
-    public int getPositionX() {
-        return x;
-    }
-    
-    public int getPositionY() {
-        return y;
-    }
-    
-    public int getVx(){
-        return vx;
-    }
-    
-    public int getVy(){
-        return vy;
-    }
-    
-    public boolean isRed() {
-        return isRed;
-    }
-    public String getColor(){
-        return this.color;
-    }
-    public String getTeam(){
-        if (isRed){return "red";}else{return "blue";}
-    }
-    public void makeVisible() {
-        circle.makeVisible();
-    }
-    
-    public void makeInvisible() {
-        circle.makeInvisible();
-    }
 }

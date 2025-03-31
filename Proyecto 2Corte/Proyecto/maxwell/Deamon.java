@@ -11,7 +11,7 @@ import java.util.Random;
  */
 
 public class Deamon {
-    private Rectangle rectangle; 
+    protected Rectangle rectangle; 
     
     public Deamon(int deamonX, int deamonY) {
         rectangle = new Rectangle();
@@ -26,7 +26,7 @@ public class Deamon {
      * @param newH  Define la altura del demonio(el rectangulo)
      * @param newW  Define la anchura del demonio(el rectangulo)
      */
-    private void settings(int deamonX, int deamonY){
+    protected void settings(int deamonX, int deamonY){
         rectangle.changeColor("black");
         rectangle.movetoX(deamonX); 
         rectangle.movetoY(deamonY);
@@ -67,7 +67,7 @@ public class Deamon {
      * @param p  Partícula a evaluar.
      * @param w  Ancho del contenedor.
      */
-    public void getAccess(Particle p, int w) {
+    protected void getAccess(Particle p, int w) {
         int px = p.getPositionX();
         int py = p.getPositionY();
         int demonX = getPositionX();

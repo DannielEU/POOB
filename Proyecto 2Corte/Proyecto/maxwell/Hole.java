@@ -1,12 +1,13 @@
 package maxwell;
 import shapes.*;
 import java.util.*;
+
 public class Hole {
-    private Circle circle;
-    private int x;
-    private int y;
-    private int maxParticles;
-    private ArrayList<String> absorbedParticleColors;
+    protected Circle circle;
+    protected int x;
+    protected int y;
+    protected int maxParticles;
+    protected ArrayList<String> absorbedParticleColors;
     
     public Hole(int x, int y, int maxParticles) throws MaxwellException {
         this.x = x + MaxwellContainer.w;
@@ -51,22 +52,28 @@ public class Hole {
     }
     
     public boolean canAbsorb() {
-        return absorbedParticleColors.size() < maxParticles;
+        return absorbedParticleColors.size() <= maxParticles;
     }
     
     public boolean tryAbsorb(Particle p) {
         if (!canAbsorb()) {
             this.makeInvisible();
-        }
+            return false;
+            }
         double distance = Math.sqrt(Math.pow(p.getPositionX() - x, 2) + 
                           Math.pow(p.getPositionY() - y, 2));
         int particleRadius = 5;
         int holeRadius = 5;
         
+        if(p.getClass() == Flying.class){
+            return false;
+        }
+        
         if (distance < (particleRadius + holeRadius)) {
             absorbedParticleColors.add(p.getColor());
             return true;
         }
+        
         return false;
     }
     

@@ -233,6 +233,10 @@ public class MaxwellContainer {
                 h = new Movil(px, py, maxParticles);
                 holes.add(h);
             }
+            if(type.toLowerCase() == "red"){
+                h = new Red(px, py, maxParticles);
+                holes.add(h);
+            }
             
         }catch(MaxwellException e){
             if(isVisible){

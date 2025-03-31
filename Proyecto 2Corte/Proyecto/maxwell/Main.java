@@ -19,6 +19,7 @@ public class Main {
         container.addDeamon("blue", 140);
         container.addDeamon("weak", 50);
         container.addHole("movil", -50, 100, 10);
+        container.addHole("red", -80, 30, 2); 
         //public MaxwellContainer           (int h, int w, int d, int b, int r, int[][] particlesData)
         container.makeVisible();
         container.start(10000);
